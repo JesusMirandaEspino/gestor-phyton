@@ -23,23 +23,6 @@ def iniciar():
 
         if opcion == '1':
             print("Listando los clientes...\n")
-        if opcion == '2':
-            print("Buscando un cliente...\n")
-        if opcion == '3':
-            print("Añadiendo un cliente...\n")
-        if opcion == '4':
-            print("Modificando un cliente...\n")
-        if opcion == '5':
-            print("Borrando un cliente...\n")
-        if opcion == '6':
-            print("Saliendo...\n")
-            break
-
-        input("\nPresiona ENTER para continuar...")
-
-
-        if opcion == '1':
-            print("Listando los clientes...\n")
             for cliente in db.Clientes.lista:
                 print(cliente)
 
@@ -59,23 +42,21 @@ def iniciar():
 
         if opcion == '4':
             print("Modificando un cliente...\n")
-            #dni = helpers.leer_texto(3, 3, "DNI (2 ints y 1 char)").upper()
-            #cliente = db.Clientes.buscar(dni)
-            #if cliente:
-            #    nombre = helpers.leer_texto(
-            #        2, 30, f"Nombre (de 2 a 30 chars) [{cliente.nombre}]").capitalize()
-            #    apellido = helpers.leer_texto(
-            #        2, 30, f"Apellido (de 2 a 30 chars) [{cliente.apellido}]").capitalize()
-            #    db.Clientes.modificar(cliente.dni, nombre, apellido)
-            #    print("Cliente modificado correctamente.")
-            #else:
-            #    print("Cliente no encontrado.")
+            dni = helpers.leer_texto(3, 3, "DNI (2 ints y 1 char)").upper()
+            cliente = db.Clientes.buscar(dni)
+            if cliente:
+                nombre = helpers.leer_texto( 2, 30, f"Nombre (de 2 a 30 chars) [{cliente.nombre}]").capitalize()
+                apellido = helpers.leer_texto( 2, 30, f"Apellido (de 2 a 30 chars) [{cliente.apellido}]").capitalize()
+                db.Clientes.modificar(cliente.dni, nombre, apellido)
+                print("Cliente modificado correctamente.")
+            else:
+                print("Cliente no encontrado.")
 
         if opcion == '5':
             print("Borrando un cliente...\n")
-            #dni = helpers.leer_texto(3, 3, "DNI (2 ints y 1 char)").upper()
-            #print("Cliente borrado correctamente.") if db.Clientes.borrar(
-            #    dni) else print("Cliente no encontrado.")
+            dni = helpers.leer_texto(3, 3, "DNI (2 ints y 1 char)").upper()
+            print("Cliente borrado correctamente.") if db.Clientes.borrar(
+                dni) else print("Cliente no encontrado.")
 
         if opcion == '6':
             print("Saliendo...\n")
