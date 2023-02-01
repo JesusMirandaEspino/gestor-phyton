@@ -30,6 +30,7 @@ class Clientes:
     def crear(dni, nombre, apellido):
         cliente = Cliente(dni, nombre, apellido)
         Clientes.lista.append(cliente)
+        Clientes.guardar()
         return cliente
 
     @staticmethod
@@ -38,11 +39,20 @@ class Clientes:
             if cliente.dni == dni:
                 Clientes.lista[i].nombre = nombre
                 Clientes.lista[i].apellido = apellido
+                Clientes.guardar()
                 return Clientes.lista[i]
 
     @staticmethod
     def borrar(dni):
         for i, cliente in enumerate(Clientes.lista):
             if cliente.dni == dni:
+                Clientes.guardar()
                 cliente = Clientes.lista.pop(i)
                 return cliente
+
+    @staticmethod
+    def guardar():
+        with open('clientes.csv','w' ,newline='\n') as fichero:
+            writer = csv.writer(fichero, delimiter=';')
+            for cliente in Clientes.lista:
+                writer.writerow((cliente.dni, cliente.nombre, cliente.apellido))
