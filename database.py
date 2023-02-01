@@ -1,3 +1,5 @@
+import csv
+
 class Cliente:
 
     def __init__(self, dni, nombre, apellido):
@@ -11,6 +13,12 @@ class Clientes:
 
     # Lista de clientes
     lista = []
+
+    with open('clientes.csv', newline='\n') as fichero:
+        reader = csv.reader(fichero, delimiter=';')
+        for dni, nombre, apellido in reader:
+            cliente = Cliente(dni, nombre, apellido)
+            lista.append(cliente)
 
     @staticmethod
     def buscar(dni):
