@@ -46,8 +46,8 @@ class Clientes:
     def borrar(dni):
         for i, cliente in enumerate(Clientes.lista):
             if cliente.dni == dni:
-                Clientes.guardar()
                 cliente = Clientes.lista.pop(i)
+                Clientes.guardar()
                 return cliente
 
     @staticmethod
