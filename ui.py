@@ -1,5 +1,5 @@
 from tkinter import *
-
+from tkinter import ttk
 
 class CenterWidgetMixin:
     def center(self,):
@@ -21,12 +21,17 @@ class MainWindow(Tk, CenterWidgetMixin):
         self.center()
 
     def build(self):
-        button = Button(self,text='Hola Mundo', command=self.hola)
-        button.pack()
+        frame = Frame(self)
+        frame.pack()
 
-    def hola(self):
-        print('Hola Mundo')
+        treeview = ttk.Treeview(frame)
+        treeview['columns'] = ( 'dni','nombre', 'apellido' )
+        treeview.pack()
 
+        treeview.column('#0', width=0, stretch=NO)
+        treeview.column('dni', anchor=CENTER)
+        treeview.column('nombre', anchor=CENTER)
+        treeview.column('apellido', anchor=CENTER)
 
 if __name__ == '__main__':
     app = MainWindow()
