@@ -1,3 +1,4 @@
+import database as db
 from tkinter import *
 from tkinter import ttk
 
@@ -25,13 +26,24 @@ class MainWindow(Tk, CenterWidgetMixin):
         frame.pack()
 
         treeview = ttk.Treeview(frame)
-        treeview['columns'] = ( 'dni','nombre', 'apellido' )
-        treeview.pack()
+        treeview['columns'] = ( 'DNI','Nombre', 'Apellido' )
 
         treeview.column('#0', width=0, stretch=NO)
-        treeview.column('dni', anchor=CENTER)
-        treeview.column('nombre', anchor=CENTER)
-        treeview.column('apellido', anchor=CENTER)
+        treeview.column('DNI', anchor=CENTER)
+        treeview.column('Nombre', anchor=CENTER)
+        treeview.column('Apellido', anchor=CENTER)
+
+        treeview.heading('DNI', text='DNI', anchor=CENTER)
+        treeview.heading('Nombre', text='Nombre', anchor=CENTER)
+        treeview.heading('Apellido', text='Apellido', anchor=CENTER)
+
+        scrollbar = Scrollbar(frame)
+        scrollbar.pack( side=RIGHT, fill=Y )
+        treeview['yscrollcommand'] = scrollbar.set
+
+        for cliente in db.Clientes.lista:
+            treeview.insert(parent='', index='end', iid=cliente.dni)
+        treeview.pack()
 
 if __name__ == '__main__':
     app = MainWindow()
