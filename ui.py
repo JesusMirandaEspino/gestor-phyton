@@ -42,8 +42,18 @@ class MainWindow(Tk, CenterWidgetMixin):
         treeview['yscrollcommand'] = scrollbar.set
 
         for cliente in db.Clientes.lista:
-            treeview.insert(parent='', index='end', iid=cliente.dni)
+            treeview.insert( parent='', index='end', iid=cliente.dni, 
+                            values=( cliente.dni, cliente.nombre, cliente.apellido ))
         treeview.pack()
+
+        frame = Frame(self)
+        frame.pack(pady=20)
+
+        Button(frame, text='Crear', command=None).grid( row=0, column=0 )
+        Button(frame, text='Modificar', command=None).grid(row=0, column=1)
+        Button(frame, text='Borrar', command=None).grid(row=0, column=2)
+
+        self.treeview = treeview
 
 if __name__ == '__main__':
     app = MainWindow()
