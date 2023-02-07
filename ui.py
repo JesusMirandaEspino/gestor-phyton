@@ -1,7 +1,7 @@
 import database as db
 from tkinter import *
 from tkinter import ttk
-from tkinter.messagebox import aksokcancel, WARNING
+from tkinter.messagebox import askokcancel, WARNING
 
 class CenterWidgetMixin:
     def center(self,):
@@ -13,6 +13,14 @@ class CenterWidgetMixin:
         x = int((ws/2) - (w/2))
         y = int((hs/2) - (h/2))
         self.geometry(f"{w}x{h}+{x}+{y}")
+
+
+class CreateClientWIndow(Toplevel, CenterWidgetMixin):
+    def __init__(self, parent):
+        super().__init__(parent)
+        self.title = "Crear Cliente"
+        self.build()
+        self.center()
 
 
 class MainWindow(Tk, CenterWidgetMixin):
@@ -50,20 +58,23 @@ class MainWindow(Tk, CenterWidgetMixin):
         frame = Frame(self)
         frame.pack(pady=20)
 
-        Button(frame, text='Crear', command=None).grid( row=0, column=0 )
+        Button(frame, text='Crear', command=self.create).grid( row=0, column=0 )
         Button(frame, text='Modificar', command=None).grid(row=0, column=1)
         Button(frame, text='Borrar', command=self.delete).grid(row=0, column=2)
 
         self.treeview = treeview
 
-        def delete(self):
-            cliente = self.treeview.focus()
-            if cliente:
-                campos = self.treeview.item( cliente, 'values' )
-                confirmar = aksokcancel( title='Confirmar Borrado', message=f"¿Borrar campos {campos[1]} {campos[2]}", icon=WARNING )
+    def delete(self):
+        cliente = self.treeview.focus()
+        if cliente:
+            campos = self.treeview.item( cliente, 'values' )
+            confirmar = askokcancel( title='Confirmar Borrado', message=f"¿Borrar campos {campos[1]} {campos[2]}", icon=WARNING )
 
-            if(confirmar):
-                self.treeview.delete(cliente)
+        if(confirmar):
+            self.treeview.delete(cliente)
+
+    def create(self):
+        CreateClientWIndow(self)
 
 if __name__ == '__main__':
     app = MainWindow()
