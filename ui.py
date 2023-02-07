@@ -21,6 +21,41 @@ class CreateClientWIndow(Toplevel, CenterWidgetMixin):
         self.title = "Crear Cliente"
         self.build()
         self.center()
+        self.transient( parent )
+        self.grab_set()
+    
+    def build(self):
+        frame = Frame(self)
+        frame.pack( padx=20, pady=10 )
+        Label( frame, text='DNI (2 int and 1 upper chart)' ).grid(row=0, column=0)
+        Label(frame, text='Nombre (2  to 30 chart)').grid(row=0, column=1)
+        Label(frame, text='Apellido (2  to 30 chart)').grid(row=0, column=2)
+
+        dni = Entry(frame)
+        dni.grid(row=1, column=0)
+        nombre = Entry(frame)
+        nombre.grid(row=1, column=1)
+        apellido = Entry(frame)
+        apellido.grid(row=1, column=2)
+
+        frame = Frame(self)
+        frame.pack(pady=10)
+
+        crear = Button(frame, text="Crear", command=self.create_client)
+        crear.configure(state=DISABLED)
+        crear.grid(row=0, column=0)
+
+        cancelar = Button(frame, text="Cancelar", command=self.close)
+        cancelar.grid(row=0, column=1)
+
+    
+    def create_client(self):
+        pass
+
+    def close(self):
+        self.destroy()
+        self.update()
+        
 
 
 class MainWindow(Tk, CenterWidgetMixin):
