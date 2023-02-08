@@ -53,6 +53,9 @@ class CreateClientWIndow(Toplevel, CenterWidgetMixin):
         cancelar = Button(frame, text="Cancelar", command=self.close)
         cancelar.grid(row=0, column=1)
 
+        self.validaciones = [0, 0, 0]  # False, False, False
+        self.crear = crear
+
     
     def create_client(self):
         pass
@@ -68,6 +71,10 @@ class CreateClientWIndow(Toplevel, CenterWidgetMixin):
         valido = helpers.dni_valido(valor, db.Clientes.lista) if index == 0 \
             else (valor.isalpha() and len(valor) >= 2 and len(valor) <= 30)
         event.widget.configure({"bg": "Green" if valido else "Red"})
+
+        self.validaciones[index] = valido
+        self.crear.config(state=NORMAL if self.validaciones == [1, 1, 1] else DISABLED)
+
 
 
 class MainWindow(Tk, CenterWidgetMixin):
