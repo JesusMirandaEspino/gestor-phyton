@@ -56,9 +56,17 @@ class CreateClientWIndow(Toplevel, CenterWidgetMixin):
         self.validaciones = [0, 0, 0]  # False, False, False
         self.crear = crear
 
+        self.dni = dni
+        self.nombre = nombre
+        self.apellido = apellido
+
+
     
     def create_client(self):
-        pass
+        self.master.treeview.insert(
+            parent='', index='end', iid=self.dni.get(),
+            values=(self.dni.get(), self.nombre.get(), self.apellido.get()))
+        self.close()
 
     def close(self):
         self.destroy()
