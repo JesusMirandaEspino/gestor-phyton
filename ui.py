@@ -1,4 +1,5 @@
 import database as db
+import helpers
 from tkinter import *
 from tkinter import ttk
 from tkinter.messagebox import askokcancel, WARNING
@@ -33,10 +34,14 @@ class CreateClientWIndow(Toplevel, CenterWidgetMixin):
 
         dni = Entry(frame)
         dni.grid(row=1, column=0)
+        dni.bind("<KeyRelease>", lambda ev: self.validate(ev, 0))
         nombre = Entry(frame)
         nombre.grid(row=1, column=1)
+        nombre.bind("<KeyRelease>", lambda ev: self.validate(ev, 1))
         apellido = Entry(frame)
         apellido.grid(row=1, column=2)
+        apellido.bind("<KeyRelease>", lambda ev: self.validate(ev, 2))
+
 
         frame = Frame(self)
         frame.pack(pady=10)
@@ -56,6 +61,13 @@ class CreateClientWIndow(Toplevel, CenterWidgetMixin):
         self.destroy()
         self.update()
         
+
+    def validate(self, event, index):
+        valor = event.widget.get()
+        # Validar como dni si es el primer campo o textual para los otros dos
+        valido = helpers.dni_valido(valor, db.Clientes.lista) if index == 0 \
+            else (valor.isalpha() and len(valor) >= 2 and len(valor) <= 30)
+        event.widget.configure({"bg": "Green" if valido else "Red"})
 
 
 class MainWindow(Tk, CenterWidgetMixin):
