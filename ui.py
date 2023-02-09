@@ -199,7 +199,7 @@ class MainWindow(Tk, CenterWidgetMixin):
         frame.pack(pady=20)
 
         Button(frame, text='Crear', command=self.create).grid( row=0, column=0 )
-        Button(frame, text='Modificar', command=None).grid(row=0, column=1)
+        Button(frame, text='Modificar', command=self.edit).grid(row=0, column=1)
         Button(frame, text='Borrar', command=self.delete).grid(row=0, column=2)
 
         self.treeview = treeview
@@ -215,6 +215,9 @@ class MainWindow(Tk, CenterWidgetMixin):
 
     def create(self):
         CreateClientWIndow(self)
+
+    def edit(self):
+        EditClientWindow(self)
 
 if __name__ == '__main__':
     app = MainWindow()
